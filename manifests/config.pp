@@ -9,4 +9,5 @@ class sublime_text::config {
 
   file { [$dir, $packagedir]:
     ensure => directory
+  }
 }
