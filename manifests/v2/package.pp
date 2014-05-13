@@ -11,7 +11,7 @@
 define sublime_text::v2::package($source) {
   require sublime_text::v2::config
 
-  repository { "${sublime_text_2::config::packagedir}/${name}":
+  repository { "${sublime_text::v2::config::packagedir}/${name}":
     source => $source
   }
 }

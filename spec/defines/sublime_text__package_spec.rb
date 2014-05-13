@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "sublime_text::v2::package" do
+describe "sublime_text::package" do
   let(:title) { 'test' }
   let(:params) { {:source => 'https://github.com/foo/bar'} }
   let(:facts) do

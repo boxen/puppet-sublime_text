@@ -1,7 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    CFPropertyList (2.2.7)
+    CFPropertyList (2.2.8)
     addressable (2.3.6)
     ansi (1.4.3)
     boxen (2.6.0)
@@ -30,11 +30,11 @@ GEM
     librarian (0.1.2)
       highline
       thor (~> 0.15)
-    librarian-puppet (1.0.1)
+    librarian-puppet (1.0.2)
       json
       librarian (>= 0.1.2)
     metaclass (0.0.4)
-    mocha (1.0.0)
+    mocha (1.1.0)
       metaclass (~> 0.0.1)
     multipart-post (2.0.0)
     octokit (2.7.2)
