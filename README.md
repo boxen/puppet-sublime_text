@@ -24,4 +24,6 @@ sublime_text::v2::package { 'Emmet':
 
 ## Required Puppet Modules
 
-None.
+* `boxen`
+* `stdlib`
+* `repository`
