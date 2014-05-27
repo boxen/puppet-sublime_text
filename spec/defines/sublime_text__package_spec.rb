@@ -9,7 +9,7 @@ describe "sublime_text::package" do
       :boxen_home => '/opt/boxen',
     }
   end
-  let(:package_dir) { "/Users/#{facts[:luser]}/Library/Application Support/Sublime Text/Packages" }
+  let(:package_dir) { "/Users/#{facts[:luser]}/Library/Application Support/Sublime Text 3/Packages" }
 
   # FIXME - rspec-puppet should properly stub facts instead of this hack.
   before :each do
