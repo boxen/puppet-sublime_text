@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'sublime_text' do
-  let(:build_version) { '3065' }
+  let(:build_version) { '3083' }
   it do
     should contain_package('Sublime Text').with({
       :provider => 'appdmg',

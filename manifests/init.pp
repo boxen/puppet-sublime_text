@@ -3,7 +3,7 @@
 # Usage:
 #
 #     include sublime_text
-class sublime_text($build = '3065') {
+class sublime_text($build = '3083') {
   require sublime_text::config
 
   package { 'Sublime Text':
