@@ -3,25 +3,31 @@
 # Usage:
 #
 #     include sublime_text
-class sublime_text($build = '3083') {
+class sublime_text(
+  $build = '3083',
+  $package_control_ensure = '5643f4fa9a335a4591482a8ecdf6e0d7413fbaa1',
+  $package_control_source = 'wbond/package_control'
+) {
   require sublime_text::config
 
-  package { 'Sublime Text':
+  package { "Sublime Text-Build-${build}":
+    ensure   => installed,
+    name     => 'Sublime Text',
     provider => 'appdmg',
-    source   => "http://c758482.r82.cf2.rackcdn.com/Sublime%20Text%20Build%20${build}.dmg";
+    source   => "https://download.sublimetext.com/Sublime%20Text%20Build%20${build}.dmg";
   }
 
   file { "${boxen::config::bindir}/subl":
     ensure  => link,
     target  => '/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl',
     mode    => '0755',
-    require => Package['Sublime Text'],
+    require => Package["Sublime Text-Build-${build}"],
   }
 
   repository { "${sublime_text::config::packagedir}/Package Control":
-    ensure  => '6a8b91ca58d66cb495b383d9572bb801316bcec5',
-    source  => 'wbond/sublime_package_control',
-    require => Package['Sublime Text']
+    ensure  => $package_control_ensure,
+    source  => $package_control_source,
+    require => Package["Sublime Text-Build-${build}"]
   }
 }
 
