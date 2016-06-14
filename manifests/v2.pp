@@ -3,7 +3,19 @@
 # Usage:
 #
 #     include sublime_text::v2
-class sublime_text::v2 ($version = '2.0.2') {
+class sublime_text::v2 (
+  $version     = '2.0.2',
+  $preferences = undef,
+  $packages    = undef,
+  $symlink     = true,
+) {
+  require sublime_text::v2::config
+
+  $_symlink = $symlink ? {
+    undef   => false,
+    default => $symlink,
+  }
+
   package { "Sublime Text 2-${version}":
     ensure   => installed,
     name     => 'Sublime Text 2',
@@ -17,5 +29,38 @@ class sublime_text::v2 ($version = '2.0.2') {
     mode    => '0755',
     require => Package["Sublime Text 2-${version}"],
   }
+
+  if file_exists($preferences) {
+    file { "${sublime_text::v2::config::packagedir}/User":
+      ensure  => 'directory',
+      owner   => $::boxen_user,
+      mode    => '0755',
+      require => Package["Sublime Text 2-${version}"],
+    }
+
+    if $_symlink {
+      file { "${sublime_text::v2::config::packagedir}/User/Preferences.sublime-settings":
+        ensure  => link,
+        target  => $preferences,
+        require => File["${sublime_text::v2::config::packagedir}/User"]
+      }
+    }
+    else {
+      file { "${sublime_text::v2::config::packagedir}/User/Preferences.sublime-settings":
+        source  => $preferences,
+        require => File["${sublime_text::v2::config::packagedir}/User"]
+      }
+    }
+  }
+
+  if $packages {
+    $_packages = $packages
+  }
+  else {
+    $_packages = hiera_hash('sublime_text::v2::packages', {})
+  }
+
+  validate_hash($_packages)
+  create_resources('sublime_text::v2::package', $_packages)
 }
 
