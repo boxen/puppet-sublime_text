@@ -22,6 +22,13 @@ class { 'sublime_text':
   package_control_source => 'wbond/package_control'
 }
 
+# You can create your user preferences file (default creates a symlink to your file)
+class { 'sublime_text':
+  preferences => "${::boxen_home}/repo/modules/people/files/${::github_login}/sublime-settings.json",
+  symlink     => false
+}
+ 
+
 # For the latest version of v2
 include sublime_text::v2
 sublime_text::v2::package { 'Emmet':
@@ -32,6 +39,38 @@ sublime_text::v2::package { 'Emmet':
 class { 'sublime_text::v2':
   version => '2.0.2',
 }
+```
+
+## Hiera configuration
+
+The following variables may be automatically overridden with Hiera:
+
+``` yaml
+---
+
+# define build of sublime text 3
+sublime_text::build: '3083'
+
+# install packages for sublime text 3...
+sublime_text::packages:
+  'Emmet':
+    source: 'sergeche/emmet-sublime'
+  'HTML5':
+    source: 'mrmartineau/HTML5'
+
+# ...or for sublime text v2
+sublime_text::v2::packages:
+  'Emmet':
+    source: 'sergeche/emmet-sublime'
+
+# you can also define the version for sublime text v2
+sublime_text::v2::version: '2.0.2'
+
+# or you can set your user preferences file just like this
+sublime_text::preferences: "%{::boxen_home}/repo/modules/people/files/%{::github_login}/sublime-settings.json"
+
+The module checks if the file exists. So you can define this globally in your common.yaml for all of your team members and if the file exists in the file folder of that team member, the module creates a symlink to this file an you can track all user changes in your version control of boxen. 
+
 ```
 
 ## Required Puppet Modules

@@ -1,0 +1,8 @@
+{
+  "font_size": 13.0,
+  "trim_trailing_white_space_on_save": true,
+  "ignored_packages":
+  [
+    "Vintage"
+  ]
+}
